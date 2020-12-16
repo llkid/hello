@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">NfcDemo</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="ipAddress">IP地址：</string>
+    <string name="serverIP">192.168.16.163</string>
+    <string name="getText">获取MAC</string>
+    <string name="labelPort">端口号：</string>
+    <string name="portNum">50296</string>
+    <string name="main_ui_title">Mac地址烧录器</string>
+    <string name="ip_hint">请输入PC端IP地址</string>
+    <string name="port_hint">请输入端口号</string>
+    <string name="mac_label_text">获取的Mac地址</string>
+</resources>
