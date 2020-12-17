@@ -106,9 +106,10 @@ public class NfcUtils {
 //        NdefRecord ndefRecord = NdefRecord.createApplicationRecord(data);
         // 0800D6145FFC4EF4
         NdefRecord autoConnectBluetoothRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA,
-                "application/vnd.bluetooth.ep.oob".getBytes(),
-                new byte[0],
+                "application/vnd.bluetooth.ep.oob".getBytes(StandardCharsets.US_ASCII),
+                null,
                 toBytes(data));
+//        NdefRecord autoConnectBluetoothRecord = NdefRecord.createMime("application/vnd.bluetooth.ep.oob", toBytes(data));
         Log.d("writeNFCToTag", Arrays.toString(toBytes(data)));
         NdefRecord[] records = {autoConnectBluetoothRecord};
 
@@ -150,6 +151,7 @@ public class NfcUtils {
         for (int i = tmp.length - 1; i >= 0; --i) {
             stringBuilder.append(tmp[i]);
         }
+        // 0800 -> ip包 0806 -> arp包，经测试两者都可以
         str = "0800" + stringBuilder.toString();
         // D6 14 5F FC 4E F4
         // F4 4E FC 5F 14 D6

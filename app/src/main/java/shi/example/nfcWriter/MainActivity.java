@@ -9,6 +9,7 @@ import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -134,7 +135,10 @@ public class MainActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         Log.e(TAG, "--------------NFC-------------");
         String action = intent.getAction();
-//        macAddress = "f4:4e:fc:5f:14:d6";
+//        f4:4e:fc:80:2e:60
+        // f4:4e:fc:5f:14:d6
+        macAddress = "f4:4e:fc:80:2e:60";
+        Log.e(TAG, action);
         if (!macAddress.isEmpty() && (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action) ||
                 NfcAdapter.ACTION_TECH_DISCOVERED.equals(action))) {
             processIntent(intent, macAddress);
@@ -145,17 +149,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void processIntent(Intent intent, String writeData) {
         Parcelable[] rawMsg = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-        if (rawMsg == null)
-            return;
+        if (rawMsg != null) {
+            Log.e("execute here: ", Arrays.toString(rawMsg));
+            NdefMessage message = (NdefMessage) rawMsg[0];
+            NdefRecord[] records = message.getRecords();
+            String resultPayload = new String(records[0].getPayload());
+            String resultType = new String(records[0].getType());
+            short resultTnf = records[0].getTnf();
+            Log.e(TAG, "resultPayload: " + resultPayload + ", resultType: " + resultType
+                    + ", resultTnf: " + String.valueOf(resultTnf));
+        }
 
-        Log.e("execute here: ", Arrays.toString(rawMsg));
-        NdefMessage message = (NdefMessage) rawMsg[0];
-        NdefRecord[] records = message.getRecords();
-        String resultPayload = new String(records[0].getPayload());
-        String resultType = new String(records[0].getType());
-        short resultTnf = records[0].getTnf();
-        Log.e(TAG, "resultPayload: " + resultPayload + ", resultType: " + resultType
-                + ", resultTnf: " + String.valueOf(resultTnf));
 
         try {
             // 检测卡的id
