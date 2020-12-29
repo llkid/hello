@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         if (checkWifiIsEnable())
             setWifiOn();
 
+        // 允许前台调度 显示 toast 消息
         if (NfcUtils.nfcAdapter != null)
             NfcUtils.nfcAdapter.enableForegroundDispatch(this, NfcUtils.pendingIntent,
                     NfcUtils.intentFilters, NfcUtils.techList);
@@ -133,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Log.e(TAG, "--------------NFC-------------");
         String action = intent.getAction();
 //        f4:4e:fc:80:2e:60
         // f4:4e:fc:5f:14:d6
@@ -142,8 +142,6 @@ public class MainActivity extends AppCompatActivity {
         if (!macAddress.isEmpty() && (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action) ||
                 NfcAdapter.ACTION_TECH_DISCOVERED.equals(action))) {
             processIntent(intent, macAddress);
-        } else {
-            Log.e(TAG, "no equal discovered");
         }
     }
 
@@ -159,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "resultPayload: " + resultPayload + ", resultType: " + resultType
                     + ", resultTnf: " + String.valueOf(resultTnf));
         }
-
 
         try {
             // 检测卡的id

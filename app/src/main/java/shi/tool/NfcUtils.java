@@ -12,6 +12,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.MifareClassic;
 import android.nfc.tech.Ndef;
+import android.nfc.tech.NdefFormatable;
 import android.nfc.tech.NfcA;
 import android.os.Build;
 import android.os.Parcelable;
@@ -29,7 +30,7 @@ import java.util.Arrays;
 public class NfcUtils {
     public static NfcAdapter nfcAdapter;
     public static IntentFilter[] intentFilters = null;
-    public static PendingIntent pendingIntent = null;
+    public static PendingIntent pendingIntent;
     public static String[][] techList = null;
 
     public NfcUtils(Activity activity) {
@@ -48,7 +49,8 @@ public class NfcUtils {
             e.printStackTrace();
         }
 
-        techList = new String[][] {{MifareClassic.class.getName()},{NfcA.class.getName()}};
+        techList = new String[][] {{MifareClassic.class.getName()}, {NfcA.class.getName()},
+                {Ndef.class.getName()}, {NdefFormatable.class.getName()}};
         intentFilters = new IntentFilter[]{intentFilter};
     }
 
@@ -103,8 +105,7 @@ public class NfcUtils {
         Ndef ndef = Ndef.get(tag);
         ndef.connect();
 
-//        NdefRecord ndefRecord = NdefRecord.createApplicationRecord(data);
-        // 0800D6145FFC4EF4
+        // 0800D6145FFC4EF4 application/vnd.bluetooth.ep.oob application/vnd.bluetooth.le.oob
         NdefRecord autoConnectBluetoothRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA,
                 "application/vnd.bluetooth.ep.oob".getBytes(StandardCharsets.US_ASCII),
                 null,

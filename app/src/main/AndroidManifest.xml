@@ -39,19 +39,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.nfc.action.TAG_DISCOVERED" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="*/*" />
-            </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.nfc.action.TAG_DISCOVERED" />-->
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+<!--                <data android:mimeType="*/*" />-->
+<!--            </intent-filter>-->
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
-                <data android:mimeType="application/vnd.shi.example.nfcWriter"
-                    tools:ignore="AppLinkUrlError" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/vnd.bluetooth.ep.oob" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.nfc.action.TECH_DISCOVERED" />
-            </intent-filter>
+<!--            <intent-filter>-->
+<!--                <action android:name="android.nfc.action.TECH_DISCOVERED" />-->
+<!--            </intent-filter>-->
         </activity>
     </application>
 
